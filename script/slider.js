@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const slider = document.querySelector('.main__job__description');
   const slides = document.querySelectorAll('.main__job__description--pages');
   const slideWidth = slides[0].offsetWidth;
-  const visibleSlides = 3;
+  let visibleSlides = window.innerWidth <= 768 ? 1 : 3; // Изменяем количество видимых слайдов
   let currentIndex = Math.floor(slides.length / 2) - 1;
   let isDragging = false;
   let startX = 0;
@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Центрируем выбранные слайды
   function updateSliderPosition() {
+    visibleSlides = window.innerWidth <= 768 ? 1 : 3; // Обновляем количество видимых слайдов при ресайзе
     const containerWidth = sliderContainer.offsetWidth;
     translateX = (containerWidth - visibleSlides * slideWidth) / 2 - currentIndex * slideWidth;
     slider.style.transform = `translateX(${translateX}px)`;
@@ -50,20 +51,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Обработчик колеса мыши ТОЛЬКО для слайдера
   slider.addEventListener('wheel', function (e) {
-    // Проверяем, что курсор находится над слайдером
     const isOverSlider = e.target.closest('.main__job__description');
 
     if (isOverSlider) {
       e.preventDefault();
       e.stopPropagation();
 
-      const delta = Math.sign(e.deltaY); // 1 - вниз, -1 - вверх
+      const delta = Math.sign(e.deltaY);
 
       if (delta > 0) {
-        // Прокрутка вниз (вправо)
         goToSlide(currentIndex + 1);
       } else {
-        // Прокрутка вверх (влево)
         goToSlide(currentIndex - 1);
       }
     }
@@ -90,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (diffX > 50) {
       goToSlide(currentIndex - 1);
     } else {
-      goToSlide(currentIndex); // Возвращаем на место если движение было маленьким
+      goToSlide(currentIndex);
     }
   });
 
@@ -104,5 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Инициализация
   updateSliderPosition();
-  window.addEventListener('resize', updateSliderPosition);
+  window.addEventListener('resize', function() {
+    // При ресайзе обновляем количество видимых слайдов и позицию
+    visibleSlides = window.innerWidth <= 768 ? 1 : 3;
+    updateSliderPosition();
+  });
 });

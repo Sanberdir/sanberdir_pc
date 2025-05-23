@@ -1,7 +1,6 @@
 .main {
   top: 0;
   z-index: 100;
-  /* Чтобы шапка была поверх других элементов */
   width: 100%;
   background-color: #a8c9f5;
   padding-block: 25px;
@@ -9,9 +8,7 @@
 
 .main__container {
   max-width: 1200px;
-  /* Максимальная ширина контента */
   margin: 0 auto;
-  /* Центрирование по горизонтали */
 }
 
 .main__title {
@@ -65,4 +62,42 @@
 
 .main__about__company__item {
   padding: 8px 0;
+}
+
+/*Адаптив*/
+@media (max-width:1250px) {
+  .main__container {
+    margin-inline: 50px;
+  }
+}
+
+@media (max-width:950px) {
+  .main__advantages--element__title {
+    font-size: 24px;
+  }
+
+  .main__advantages--element__text {
+    font-size: 14px;
+  }
+
+  .main__advantages--title {
+    font-size: 28px;
+  }
+
+  .main__title {
+    font-size: 28px;
+  }
+  .main__about__company__text {
+    font-size: 18px;
+  }
+}
+@media (max-width:768px) {
+  .main__advantages--list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+  .main__advantages--element__text {
+    padding-top: 15px;
+  }
 }

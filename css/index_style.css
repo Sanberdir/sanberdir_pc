@@ -9,9 +9,7 @@
 
 .main__container {
   max-width: 1200px;
-  /* Максимальная ширина контента */
   margin: 0 auto;
-  /* Центрирование по горизонтали */
 }
 
 .main__title {
@@ -19,6 +17,10 @@
   font-weight: 800;
   text-align: center;
   color: #111111;
+}
+
+.main__title--mob {
+  display: none;
 }
 
 .main__job__description {
@@ -30,9 +32,7 @@
 
 .main__job__description--pages {
   flex: 0 0 auto;
-  /* Запрещаем слайдам сжиматься/растягиваться */
   width: 33.33%;
-  /* Каждый слайд занимает 1/3 ширины */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -94,4 +94,65 @@
 
 .main__activity__item {
   padding: 8px 0;
+}
+
+/*Адаптив*/
+@media (max-width:1250px) {
+  .main__container {
+    margin-inline: 50px;
+  }
+}
+
+@media (max-width:768px) {
+  .main__job__description--pages {
+    width: 90%;
+  }
+
+  .main__job__description--image {
+    width: 250px;
+    height: 250px;
+  }
+
+  .main__job__description--name {
+    font-size: 24px;
+  }
+
+  .main__title {
+    display: none;
+  }
+
+  .main__title--mob {
+    display: block;
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    color: #111111;
+  }
+
+  .main__activity__text {
+    font-size: 20px;
+  }
+
+  .main__activity__list {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+
+  .main__activity__text {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width:450px) {
+  .main__job__description--image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .main__job__description--name {
+    font-size: 16px;
+  }
+  .main__title--mob {
+    font-size: 24px;
+  }
 }

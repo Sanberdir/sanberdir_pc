@@ -6,11 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
   let visibleSlides = window.innerWidth <= 768 ? 1 : 3;
   let currentIndex = Math.floor(slides.length / 2) - 1;
   let isDragging = false;
-  let startX = 0;
-  let currentX = 0;
-  let translateX = 0;
-  let touchStartX = 0;
-  let touchCurrentX = 0;
+  let startPos = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID = 0;
 
   // Настройка контейнера
   sliderContainer.style.overflow = 'hidden';
@@ -19,131 +18,128 @@ document.addEventListener('DOMContentLoaded', function () {
   slider.style.transition = 'transform 0.3s ease-out';
   slider.style.cursor = 'grab';
 
-  // Центрируем выбранные слайды
-  function updateSliderPosition() {
+  // Рассчитываем позицию слайдера
+  function setSliderPosition() {
     visibleSlides = window.innerWidth <= 768 ? 1 : 3;
     const containerWidth = sliderContainer.offsetWidth;
-    translateX = (containerWidth - visibleSlides * slideWidth) / 2 - currentIndex * slideWidth;
-    slider.style.transform = `translateX(${translateX}px)`;
+    currentTranslate = (containerWidth - visibleSlides * slideWidth) / 2 - currentIndex * slideWidth;
+    prevTranslate = currentTranslate;
+    slider.style.transform = `translateX(${currentTranslate}px)`;
   }
 
-  // Переключение слайдов
+  // Анимация перетаскивания
+  function animation() {
+    slider.style.transform = `translateX(${currentTranslate}px)`;
+    if (isDragging) requestAnimationFrame(animation);
+  }
+
+  // Переключение слайдов с "прилипанием"
   function goToSlide(index) {
     if (index < 0) index = 0;
     if (index > slides.length - visibleSlides) index = slides.length - visibleSlides;
 
     currentIndex = index;
-    slider.style.transition = 'transform 0.3s ease-out';
-    updateSliderPosition();
+    setSliderPosition();
   }
 
-  // Обработчики событий мыши
-  slides.forEach(slide => {
+  // Обработчики для мыши
+  slides.forEach((slide, index) => {
+    // Отключаем стандартное перетаскивание
     slide.addEventListener('dragstart', (e) => e.preventDefault());
 
+    // События мыши
     slide.addEventListener('mousedown', (e) => {
       isDragging = true;
-      startX = e.clientX;
-      currentX = startX;
+      startPos = e.clientX;
       slider.style.cursor = 'grabbing';
       slider.style.transition = 'none';
+      
+      // Запускаем анимацию
+      animation();
       e.preventDefault();
     });
   });
 
-  // Обработчик колеса мыши
-  slider.addEventListener('wheel', function (e) {
-    const isOverSlider = e.target.closest('.main__job__description');
-
-    if (isOverSlider) {
+  // События касания для мобильных
+  slides.forEach((slide, index) => {
+    slide.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startPos = e.touches[0].clientX;
+      slider.style.transition = 'none';
+      animation();
       e.preventDefault();
-      e.stopPropagation();
+    }, { passive: false });
 
-      const delta = Math.sign(e.deltaY);
-
-      if (delta > 0) {
-        goToSlide(currentIndex + 1);
-      } else {
-        goToSlide(currentIndex - 1);
+    slide.addEventListener('touchmove', (e) => {
+      if (isDragging) {
+        const currentPosition = e.touches[0].clientX;
+        currentTranslate = prevTranslate + currentPosition - startPos;
       }
-    }
-  }, { passive: false });
+      e.preventDefault();
+    }, { passive: false });
 
-  // Обработчики сенсорных событий
-  slider.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    touchStartX = e.touches[0].clientX;
-    touchCurrentX = touchStartX;
-    slider.style.transition = 'none';
-    e.preventDefault();
-  }, { passive: false });
-
-  slider.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    
-    const touch = e.touches[0];
-    touchCurrentX = touch.clientX;
-    const diffX = touchCurrentX - touchStartX;
-    translateX += diffX;
-    slider.style.transform = `translateX(${translateX}px)`;
-    touchStartX = touchCurrentX;
-    e.preventDefault();
-  }, { passive: false });
-
-  slider.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-
-    const diffX = touchCurrentX - touchStartX;
-
-    if (diffX < -50) {
-      goToSlide(currentIndex + 1);
-    } else if (diffX > 50) {
-      goToSlide(currentIndex - 1);
-    } else {
-      goToSlide(currentIndex);
-    }
-    e.preventDefault();
-  }, { passive: false });
+    slide.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        const movedBy = currentTranslate - prevTranslate;
+        
+        // Определяем направление и силу свайпа
+        if (movedBy < -50) {
+          goToSlide(currentIndex + 1);
+        } else if (movedBy > 50) {
+          goToSlide(currentIndex - 1);
+        } else {
+          goToSlide(currentIndex);
+        }
+      }
+    });
+  });
 
   // Общие обработчики для мыши
   document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-
-    const diffX = e.clientX - currentX;
-    currentX = e.clientX;
-    translateX += diffX;
-    slider.style.transform = `translateX(${translateX}px)`;
+    if (isDragging) {
+      const currentPosition = e.clientX;
+      currentTranslate = prevTranslate + currentPosition - startPos;
+    }
   });
 
-  document.addEventListener('mouseup', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    slider.style.cursor = 'grab';
-
-    const diffX = e.clientX - startX;
-
-    if (diffX < -50) {
-      goToSlide(currentIndex + 1);
-    } else if (diffX > 50) {
-      goToSlide(currentIndex - 1);
-    } else {
-      goToSlide(currentIndex);
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      const movedBy = currentTranslate - prevTranslate;
+      
+      if (movedBy < -50) {
+        goToSlide(currentIndex + 1);
+      } else if (movedBy > 50) {
+        goToSlide(currentIndex - 1);
+      } else {
+        goToSlide(currentIndex);
+      }
+      slider.style.cursor = 'grab';
     }
   });
 
   document.addEventListener('mouseleave', () => {
     if (isDragging) {
       isDragging = false;
-      slider.style.cursor = 'grab';
       goToSlide(currentIndex);
+      slider.style.cursor = 'grab';
     }
   });
 
-  // Инициализация
-  updateSliderPosition();
+  // Обработчик колеса мыши
+  slider.addEventListener('wheel', function (e) {
+    e.preventDefault();
+    const delta = Math.sign(e.deltaY);
+    goToSlide(currentIndex + delta);
+  }, { passive: false });
+
+  // Ресайз
   window.addEventListener('resize', function() {
     visibleSlides = window.innerWidth <= 768 ? 1 : 3;
-    updateSliderPosition();
+    setSliderPosition();
   });
+
+  // Инициализация
+  setSliderPosition();
 });

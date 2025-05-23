@@ -3,12 +3,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const slider = document.querySelector('.main__job__description');
   const slides = document.querySelectorAll('.main__job__description--pages');
   const slideWidth = slides[0].offsetWidth;
-  let visibleSlides = window.innerWidth <= 768 ? 1 : 3; // Изменяем количество видимых слайдов
+  let visibleSlides = window.innerWidth <= 768 ? 1 : 3;
   let currentIndex = Math.floor(slides.length / 2) - 1;
   let isDragging = false;
   let startX = 0;
   let currentX = 0;
   let translateX = 0;
+  let touchStartX = 0;
+  let touchCurrentX = 0;
 
   // Настройка контейнера
   sliderContainer.style.overflow = 'hidden';
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Центрируем выбранные слайды
   function updateSliderPosition() {
-    visibleSlides = window.innerWidth <= 768 ? 1 : 3; // Обновляем количество видимых слайдов при ресайзе
+    visibleSlides = window.innerWidth <= 768 ? 1 : 3;
     const containerWidth = sliderContainer.offsetWidth;
     translateX = (containerWidth - visibleSlides * slideWidth) / 2 - currentIndex * slideWidth;
     slider.style.transform = `translateX(${translateX}px)`;
@@ -49,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Обработчик колеса мыши ТОЛЬКО для слайдера
+  // Обработчик колеса мыши
   slider.addEventListener('wheel', function (e) {
     const isOverSlider = e.target.closest('.main__job__description');
 
@@ -67,6 +69,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }, { passive: false });
 
+  // Обработчики сенсорных событий
+  slider.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    touchStartX = e.touches[0].clientX;
+    touchCurrentX = touchStartX;
+    slider.style.transition = 'none';
+    e.preventDefault();
+  }, { passive: false });
+
+  slider.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    
+    const touch = e.touches[0];
+    touchCurrentX = touch.clientX;
+    const diffX = touchCurrentX - touchStartX;
+    translateX += diffX;
+    slider.style.transform = `translateX(${translateX}px)`;
+    touchStartX = touchCurrentX;
+    e.preventDefault();
+  }, { passive: false });
+
+  slider.addEventListener('touchend', (e) => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const diffX = touchCurrentX - touchStartX;
+
+    if (diffX < -50) {
+      goToSlide(currentIndex + 1);
+    } else if (diffX > 50) {
+      goToSlide(currentIndex - 1);
+    } else {
+      goToSlide(currentIndex);
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  // Общие обработчики для мыши
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
 
@@ -103,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Инициализация
   updateSliderPosition();
   window.addEventListener('resize', function() {
-    // При ресайзе обновляем количество видимых слайдов и позицию
     visibleSlides = window.innerWidth <= 768 ? 1 : 3;
     updateSliderPosition();
   });

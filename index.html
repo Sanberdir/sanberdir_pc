@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC MASTER</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index_style.css">
+    <link rel="stylesheet" href="css/modal_window.css">
+    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <main class="main">
+        <div class="main__container">
+            <h1 class="main__title">Наш каталог. Наведите курсор и крутите колёсико мыши.</h1>
+            <div class="main__job__description">
+                <a href="#" class="main__job__description--pages" data-modal="pc_assembly.html">
+                    <div>
+                        <h2 class="main__job__description--name">Сборка компьютера</h2>
+                        <div class="main__job__description--image pc__assembly"></div>
+                    </div>
+                </a>
+
+                <a href="#" class="main__job__description--pages" data-modal="pc_repair.html">
+                    <div>
+                        <h2 class="main__job__description--name">Починка компьютера</h2>
+                        <div class="main__job__description--image pc__repair"></div>
+                    </div>
+                </a>
+
+                <a href="#" class="main__job__description--pages" data-modal="pc_check.html">
+                    <div>
+                        <h2 class="main__job__description--name">Проверка компьютера</h2>
+                        <div class="main__job__description--image pc__check"></div>
+                    </div>
+                </a>
+
+                <a href="#" class="main__job__description--pages" data-modal="pc_replace.html">
+                    <div>
+                        <h2 class="main__job__description--name">Замена запчастей</h2>
+                        <div class="main__job__description--image pc__spare"></div>
+                    </div>
+                </a>
+
+                <a href="#" class="main__job__description--pages" data-modal="pc_scan.html">
+                    <div>
+                        <h2 class="main__job__description--name">Сканирование ПК</h2>
+                        <div class="main__job__description--image pc__scan"></div>
+                    </div>
+                </a>
+            </div>
+            <!-- Модальное окно -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <iframe id="modalIframe" src="" frameborder="0"></iframe>
+                </div>
+            </div>
+            <p class="main__activity__text">
+                Специализируюсь на <b>ремонте, настройке и сборке ПК и ноутбуков.</b>
+                Провожу диагностику, устраняю программные и аппаратные неисправности (без пайки и ремонта электронных
+                компонентов).
+            </p>
+            <ul class="main__activity__list">
+                <li class="main__activity__item">Чистка и обслуживание (удаление пыли, замена термопасты, оптимизация
+                    охлаждения)</li>
+                <li class="main__activity__item">Апгрейд и замена комплектующих (жёсткие диски, оперативная память,
+                    видеокарты и др.)</li>
+                <li class="main__activity__item">Настройка и оптимизация (Windows, драйверы, удаление вирусов, ускорение
+                    работы)</li>
+                <li class="main__activity__item">Сборка компьютеров (игровые, рабочие, офисные – подберу оптимальные
+                    компоненты под ваш бюджет)</li>
+            </ul>
+            <p class="main__activity__text">
+                Работаю быстро, с гарантией и понятным объяснением всех действий.
+                Верну вашему ПК или ноутбуку <b>стабильную работу и производительность!</b>
+            </p>
+        </div>
+    </main>
+    <script src="script/slider.js"></script>
+    <script src="script/add_header_footer.js"></script>
+    <script src="script/modal_window.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+.main {
+  top: 0;
+  z-index: 100;
+  /* Чтобы шапка была поверх других элементов */
+  width: 100%;
+  background-color: #a8c9f5;
+  padding-block: 25px;
+}
+
+.main__container {
+  max-width: 1200px;
+  /* Максимальная ширина контента */
+  margin: 0 auto;
+  /* Центрирование по горизонтали */
+}
+
+.main__title {
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+  color: #111111;
+}
+
+.main__about__company__text {
+  margin-top: 30px;
+  color: #111111;
+  font-size: 24px;
+  text-align: justify;
+}
+
+.main__advantages--title {
+  margin-top: 30px;
+  color: #111111;
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.main__advantages--list {
+  display: flex;
+  margin-top: 15px;
+  column-gap: 30px;
+}
+
+.main__advantages--element__title {
+  font-size: 32px;
+  color: #312005;
+  font-weight: 800;
+  text-align: center;
+}
+
+.main__advantages--element__text {
+  font-size: 18px;
+  color: #20150c;
+  font-weight: 400;
+  text-align: justify;
+}
+
+.main__about__company__list {
+  margin-top: 32px;
+  font-size: 20px;
+  list-style-type: circle !important;
+  padding-left: 24px !important;
+}
+
+.main__about__company__item {
+  padding: 8px 0;
+}

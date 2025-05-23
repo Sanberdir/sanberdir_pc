@@ -1,0 +1,174 @@
+/* Reset styles (v2.1) */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+}
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  background: none;
+  border-radius: 0;
+  appearance: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+textarea {
+  resize: none;
+  overflow: auto;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*Основной CSS*/
+.header {
+  top: 0;
+  width: 100%;
+  background-color: #1eb6f1;
+}
+
+.header__container {
+  background-color: #1eb6f1;
+  max-width: 1200px;
+  /* Максимальная ширина контента */
+  margin: 0 auto;
+  /* Центрирование по горизонтали */
+  display: flex;
+  /* Гибкий контейнер */
+  justify-content: space-evenly;
+}
+
+.header__logo {
+  width: 120px;
+  height: 100px;
+  background-image: url("../images/logo.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.header__container--menu {
+  display: flex;
+  align-items: center;
+}
+
+.header__menu--list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__menu--element {
+  padding-inline: 10px;
+  font-size: 24px;
+  color: #eeeeee;
+}
+
+.header__menu--element:hover {
+  color: #eeebbb;
+}
+
+.footer {
+  top: 0;
+  z-index: 100;
+  /* Чтобы шапка была поверх других элементов */
+  width: 100%;
+  background-color: #111111;
+  padding-block: 25px;
+}
+
+.footer__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  column-gap: 320px;
+}
+
+.footer__contacts {
+  color: #eeeeee;
+  text-align: center;
+}
+
+.footer__phone__text {
+  color: #eeeeee;
+  text-align: center;
+  font-size: 24px;
+}
+
+.footer__phone {
+  color: #eeeeee;
+  text-align: center;
+  font-size: 24px;
+  padding-top: 32px;
+  list-style: none;
+}
+
+.footer__contact {
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.footer__contacts--list {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.telegram {
+  background-image: url(../images/tg.png);
+}
+
+.vk {
+  background-image: url(../images/vk.png);
+}

@@ -1,0 +1,97 @@
+.main {
+  top: 0;
+  z-index: 100;
+  /* Чтобы шапка была поверх других элементов */
+  width: 100%;
+  background-color: #a8c9f5;
+  padding-block: 25px;
+}
+
+.main__container {
+  max-width: 1200px;
+  /* Максимальная ширина контента */
+  margin: 0 auto;
+  /* Центрирование по горизонтали */
+}
+
+.main__title {
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+  color: #111111;
+}
+
+.main__job__description {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 30px;
+  color: #111111;
+}
+
+.main__job__description--pages {
+  flex: 0 0 auto;
+  /* Запрещаем слайдам сжиматься/растягиваться */
+  width: 33.33%;
+  /* Каждый слайд занимает 1/3 ширины */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  list-style: none;
+  color: #000;
+}
+
+.main__job__description--pages:hover {
+  color: rgb(38, 110, 38);
+}
+
+.main__job__description--image {
+  width: 200px;
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin-top: 15px;
+}
+
+.main__job__description--name {
+  text-align: center;
+  font-size: 18px;
+}
+
+.pc__assembly {
+  background-image: url("../images/pc_assembly.jpg");
+}
+
+.pc__repair {
+  background-image: url("../images/pc_repair.jpg");
+}
+
+.pc__check {
+  background-image: url("../images/pc_check.jpg");
+}
+
+.pc__scan {
+  background-image: url("../images/pc_scan.jpg");
+}
+
+.pc__spare {
+  background-image: url("../images/pc_spare.jpg");
+}
+
+.main__activity__text {
+  margin-top: 30px;
+  color: #111111;
+  font-size: 32px;
+  text-align: justify;
+}
+
+.main__activity__list {
+  margin-top: 32px;
+  font-size: 24px;
+  list-style-type: circle !important;
+  padding-left: 24px !important;
+}
+
+.main__activity__item {
+  padding: 8px 0;
+}

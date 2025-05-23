@@ -1,0 +1,86 @@
+.main {
+  top: 0;
+  z-index: 100;
+  /* Чтобы шапка была поверх других элементов */
+  width: 100%;
+  background-color: #a8c9f5;
+  padding-block: 25px;
+}
+
+.main__container {
+  max-width: 1200px;
+  min-height: 70vh;
+  margin: 0 auto;
+  /* Центрирование по горизонтали */
+}
+
+.main__title {
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+  color: #111111;
+}
+
+/*Сетка цен*/
+.price-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 1px;
+  background: #eeeeee;
+  border: 1px solid #0b63d6;
+  margin-block: 50px;
+}
+
+.grid-header,
+.grid-row {
+  display: contents;
+}
+
+.header-item,
+.grid-item {
+  padding: 15px;
+  background: rgb(148, 255, 232);
+
+}
+
+.price {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header-item {
+  font-weight: bold;
+  background: #069475;
+  color: #eeeeee;
+  text-align: center;
+}
+
+.diagnostics-list {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.diagnostics-list li {
+  padding: 3px 0;
+  position: relative;
+  padding-left: 20px;
+}
+
+.diagnostics-list li:before {
+  content: "•";
+  color: #2ecc71;
+  position: absolute;
+  left: 0;
+}
+
+.name_item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}

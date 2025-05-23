@@ -1,0 +1,44 @@
+::-webkit-scrollbar {
+  width: 0;
+}
+.main {
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: #363636;
+  padding-block: 25px;
+}
+.main__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main__container__page {
+  background-image: url("../images/scan_pc.png");
+  width: 500px;
+  height: 500px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.main__container__title {
+  color: #eeeeee;
+  font-size: 32px;
+}
+
+.main__container__text {
+  color: #eeeeee;
+  font-size: 24px;
+  padding-inline: 45px;
+}
+.main__container__item {
+  color: #eeeeee;
+  font-size: 18px;
+}
+.main__container__list {
+  padding-inline: 65px;
+}

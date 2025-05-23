@@ -11,7 +11,7 @@
   max-width: 1200px;
   min-height: 70vh;
   margin: 0 auto;
-  /* Центрирование по горизонтали */
+  margin-inline: 50px;
 }
 
 .main__title {

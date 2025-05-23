@@ -10,7 +10,7 @@
 .main__container {
   max-width: 1200px;
   margin: 0 auto;
-  margin-inline: 50px;
+  padding-inline: 50px;
 }
 
 .main__title {

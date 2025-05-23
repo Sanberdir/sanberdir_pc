@@ -1,6 +1,11 @@
 ::-webkit-scrollbar {
   width: 0;
 }
+*,
+*::before,
+*::after {
+  font-family: 'Playfair Display', serif;
+}
 .main {
   top: 0;
   z-index: 100;

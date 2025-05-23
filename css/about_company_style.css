@@ -9,6 +9,10 @@
 .main__container {
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
+=======
+  padding-inline: 50px;
+>>>>>>> 0ddcd1f6d90ba43eb8fc83ee162ef017b1d80632
 }
 
 .main__title {
@@ -63,6 +67,7 @@
 .main__about__company__item {
   padding: 8px 0;
 }
+<<<<<<< HEAD
 
 /*Адаптив*/
 @media (max-width:1250px) {
@@ -101,3 +106,5 @@
     padding-top: 15px;
   }
 }
+=======
+>>>>>>> 0ddcd1f6d90ba43eb8fc83ee162ef017b1d80632

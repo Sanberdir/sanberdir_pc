@@ -9,9 +9,8 @@
 
 .main__container {
   max-width: 1200px;
-  /* Максимальная ширина контента */
   margin: 0 auto;
-  /* Центрирование по горизонтали */
+  margin-inline: 50px;
 }
 
 .main__title {

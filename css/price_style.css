@@ -11,7 +11,7 @@
   max-width: 1200px;
   min-height: 70vh;
   margin: 0 auto;
-  padding-inline: 50px;
+  /* Центрирование по горизонтали */
 }
 
 .main__title {
@@ -84,7 +84,6 @@
   flex-direction: column;
   text-align: center;
 }
-<<<<<<< HEAD
 /*Адаптив*/
 @media (max-width:1250px) {
   .main__container {
@@ -177,5 +176,3 @@
     font-size: 24px;
   }
 }
-=======
->>>>>>> 0ddcd1f6d90ba43eb8fc83ee162ef017b1d80632

@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
             modalIframe.src = url;
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
-            // Добавляем обработчик события нажатия клавиши
             document.addEventListener('keydown', handleKeyDown);
         }
     };
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
         modalIframe.src = '';
         document.body.style.overflow = '';
-        // Удаляем обработчик события нажатия клавиши
         document.removeEventListener('keydown', handleKeyDown);
     };
 
@@ -31,22 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Обработчики для ссылок, открывающих модальное окно
+    // Универсальный обработчик для тач и клик событий
+    const handleLinkActivation = (e) => {
+        e.preventDefault();
+        const modalUrl = e.currentTarget.getAttribute('data-modal');
+        openModal(modalUrl);
+    };
+
+    // Добавляем обработчики для всех типов устройств
     modalLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const modalUrl = link.getAttribute('data-modal');
-            openModal(modalUrl);
+        // Для клика (мышь)
+        link.addEventListener('click', handleLinkActivation);
+        
+        // Для тач-устройств
+        link.addEventListener('touchstart', handleLinkActivation, {
+            passive: true // Для улучшения производительности
         });
     });
 
     // Закрытие по клику на крестик
     closeBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('touchstart', closeModal, { passive: true });
 
     // Закрытие по клику вне окна
-    modal.addEventListener('click', (e) => {
+    const handleModalClose = (e) => {
         if (e.target === modal) {
             closeModal();
         }
-    });
+    };
+    modal.addEventListener('click', handleModalClose);
+    modal.addEventListener('touchstart', handleModalClose, { passive: true });
 });

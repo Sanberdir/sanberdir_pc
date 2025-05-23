@@ -42,3 +42,9 @@
 .main__container__list {
   padding-inline: 65px;
 }
+@media (max-width:450px) {
+  .main__container__page {
+    width: 500px;
+    height: 500px;
+  }
+}

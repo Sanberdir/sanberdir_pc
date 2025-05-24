@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC MASTER</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/price_style.css">
+    <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <main class="main">
+        <div class="main__container">
+            <h1 class="main__title">Отзывы</h1>
+    <form id="reviewForm">
+        <div>
+            <label>Имя: <input type="text" id="userName" required></label>
+        </div>
+        <div>
+            <label>Email: <input type="email" id="userEmail" required></label>
+        </div>
+        <div>
+            <label>Отзыв: <textarea id="userComment" required></textarea></label>
+        </div>
+        <button type="submit">Отправить</button>
+    </form>
+    
+    <div id="reviewsList"></div>
+        </div>
+    </main>
+    <script src="script/add_header_footer.js"></script>
+    <script src="script/server.js"></script>
+    <script>
+        // Загрузка отзывов при загрузке страницы
+        async function loadReviews() {
+            try {
+                const response = await fetch('/api/reviews');
+                const reviews = await response.json();
+                displayReviews(reviews);
+            } catch (error) {
+                console.error('Ошибка загрузки отзывов:', error);
+            }
+        }
+
+        // Отправка нового отзыва
+        async function addReview(review) {
+            try {
+                const response = await fetch('/api/reviews', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(review)
+                });
+                const newReview = await response.json();
+                displayReviews([newReview], true);
+                return true;
+            } catch (error) {
+                console.error('Ошибка отправки отзыва:', error);
+                return false;
+            }
+        }
+
+        // Отображение отзывов
+        function displayReviews(reviews, prepend = false) {
+            const container = document.getElementById('reviewsList');
+            
+            if (reviews.length === 0) {
+                container.innerHTML = '<p>Пока нет отзывов. Будьте первым!</p>';
+                return;
+            }
+
+            let html = reviews.map(review => `
+                <div class="review">
+                    <h3>${review.name}</h3>
+                    <p>${review.comment}</p>
+                    <small>${new Date(review.date).toLocaleString()}</small>
+                </div>
+            `).join('');
+
+            if (prepend) {
+                container.insertAdjacentHTML('afterbegin', html);
+            } else {
+                container.innerHTML = html;
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            loadReviews();
+            
+            document.getElementById('reviewForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const review = {
+                    name: document.getElementById('userName').value.trim(),
+                    email: document.getElementById('userEmail').value.trim(),
+                    comment: document.getElementById('userComment').value.trim()
+                };
+                
+                if (review.name && review.email && review.comment) {
+                    const success = await addReview(review);
+                    if (success) {
+                        document.getElementById('reviewForm').reset();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

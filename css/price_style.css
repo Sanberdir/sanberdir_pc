@@ -145,14 +145,12 @@
   }
   
   .base-price {
-    font-weight: bold;
     display: block;
     margin-bottom: 5px;
   }
   
   .price-note {
     font-size: 0.9em;
-    color: #555;
   }
   
   .diagnostics-list li {

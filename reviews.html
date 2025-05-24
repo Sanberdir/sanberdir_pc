@@ -37,6 +37,52 @@
     <script src="script/add_header_footer.js"></script>
     <script src="script/server.js"></script>
     <script>
+                const REPO_CONFIG = {
+            owner: 'Sanberdir',
+            repo: 'sanberdir_pc',
+            path: 'data/reviews.json'
+        };
+
+        // Функция для работы с GitHub API
+        async function updateReviews(newReview) {
+            try {
+                // 1. Получаем текущие отзывы
+                const getResponse = await fetch(`/api/github-proxy?path=${encodeURIComponent(REPO_CONFIG.path)}`);
+                if (!getResponse.ok) throw new Error('Ошибка получения отзывов');
+                
+                const { content, sha } = await getResponse.json();
+                const reviews = JSON.parse(content);
+                
+                // 2. Добавляем новый отзыв
+                reviews.push({
+                    id: Date.now(),
+                    ...newReview,
+                    date: new Date().toISOString()
+                });
+                
+                // 3. Обновляем файл
+                const updateResponse = await fetch('/api/github-proxy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        path: REPO_CONFIG.path,
+                        message: 'Add new review',
+                        content: JSON.stringify(reviews, null, 2),
+                        sha: sha
+                    })
+                });
+                
+                if (!updateResponse.ok) throw new Error('Ошибка сохранения отзыва');
+                
+                return true;
+            } catch (error) {
+                console.error('Ошибка:', error);
+                alert('Не удалось сохранить отзыв. Пожалуйста, попробуйте позже.');
+                return false;
+            }
+        }
         // Загрузка отзывов при загрузке страницы
         async function loadReviews() {
             try {

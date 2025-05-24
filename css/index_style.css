@@ -145,8 +145,11 @@
 
 @media (max-width:450px) {
   .main__job__description--image {
-    width: 150px;
-    height: 150px;
+    width: 220px;
+    height: 175px;
+  }
+  .main__container__title {
+    text-align:center;
   }
 
   .main__job__description--name {

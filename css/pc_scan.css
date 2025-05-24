@@ -1,6 +1,11 @@
 ::-webkit-scrollbar {
   width: 0;
 }
+*,
+*::before,
+*::after {
+  font-family: "Shantell Sans", cursive;
+}
 .main {
   top: 0;
   z-index: 100;
@@ -41,4 +46,10 @@
 }
 .main__container__list {
   padding-inline: 65px;
+}
+@media (max-width:450px) {
+  .main__container__page {
+    width: 250px;
+    height: 250px;
+  }
 }
